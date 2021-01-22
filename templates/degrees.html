@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="author" content="Nelson Love">
+        <title>Degrees of Wikipedia</title>
+        <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+    </head>
+    <body>
+        <h1><a href="">Degrees of Wikipedia</a></h1>
+        <form action="" method="post" novalidate>
+            <input id="current" name="current" type="hidden" value="{{ current_url }}">
+            <input id="jumps" name="jumps" type="hidden" value="{{ jumps }}">
+            {% if dest_title == "Main Page" %}
+                <label for="origin">Origin page:</label>
+                <input name="origin" class="form-control" value="https://en.wikipedia.org/wiki/Special:Random"/>
+                <label for="dest">Destination page:</label>
+                <input name="dest" class="form-control" value="https://en.wikipedia.org/wiki/Special:Random"/>
+            {% else %}
+                <input id="origin" name="origin" type="hidden" value="{{ origin_url }}">
+                <input id="dest" name="dest" type="hidden" value="{{ dest_url }}">
+                <p><b>Starting page: </b><a href="{{ origin_url }}" target="_blank">{{ origin_title }}</a></p>
+                <p><b>Destination page: </b><a href="{{ dest_url }}" target="_blank">{{ dest_title }}</a></p>
+                <p><b>Current page: </b><a href="{{ current_url }}" target="_blank">{{ current_title }}</a></p>
+                <p><b>Number of jumps: </b>{{ jumps }}</p>
+                {% if current_url == dest_url %}
+                    <h1>YOU WON!</h1>
+                    <p>Won in {{ jumps }} jumps!</p>
+                {% elif links %}
+                    <label for="next">Select a link to follow:</label>
+                    <select name="next" size="20" class="form-select">
+                        {% for title, link in links %}
+                            <option value="{{ link }}">{{ title }}</option>
+                        {% endfor %}
+                    </select>
+                {% endif %}
+            {% endif %}
+            {% if origin_title == "Main Page" or not current_url == dest_url %}
+                <div class="form-group">
+                    <input type="submit" value="Go!">
+                </div>
+            {% endif %}
+        </form>
+    </body>
+</html>
