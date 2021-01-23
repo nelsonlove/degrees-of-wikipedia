@@ -7,5 +7,5 @@ setup(
    author='Nelson Love',
    author_email='nelson.love@me.com',
    packages=['degrees_of_wikipedia'],
-   install_requires=['bs4', 'flask', 'requests'], #external packages as dependencies
+   install_requires=['bs4', 'flask', 'requests'],
 )
