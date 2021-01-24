@@ -45,7 +45,7 @@
 
     {%- endif -%}
 
-    {%- if current.url != dest.url %}
+    {%- if not dest or current.url != dest.url %}
         <div class="form-group">
             <input type="submit" value="Go!">
         </div>
